@@ -1,7 +1,7 @@
 # Docker Aria2的最佳实践
 Docker Hub：https://hub.docker.com/r/superng6/aria2
 
-GitHub：https://www.github.com/SuperNG6/docker_aria2
+GitHub：https://www.github.com/SuperNG6/docker-aria2
 
 博客：https://sleele.com/2019/09/27/docker-aria2的最佳实践/
 
@@ -25,8 +25,10 @@ __当前的镜像或多或少都有以下几点不符合的我的需求__
    > aria2建立下载任务后会自动生成.aria2文件，aria2自身提供了api可以触发执行脚本
    
 # 本镜像的一些优点
+- 全平台架构`x86-64`、`arm64`、`armhf`
 - 做了usermapping，使用你自己的账户权限来运行，这点对于群辉来说尤其重要
 - 纯aria2，没有包含多于的服务
+- 超小镜像体积 10.77 MB
 - 开放了BT下载DTH监听端口、BT下载监听端口（TCP/UDP 6881），加快下载速度
 - 默认开启DHT并且创建了DHT文件，加速下载
 - 包含了下载完成后自动删除.aria2文件脚本
@@ -37,9 +39,29 @@ __当前的镜像或多或少都有以下几点不符合的我的需求__
 - 直接设置token，不需要在配置文件里修改
 - 最新静态编译版的aria2c1.3.5
 - 支持自动更新tracker，每次启动容器时会自动更新tracker
+- 手动设置磁盘缓存，默认参数`x86-64:512M`、`arm64:256M`、`armhf:128M`
+
+# Architecture
+
+| Architecture | Tag            |
+| ------------ | -------------- |
+| x86-64       | amd64-latest   |
+| arm64        | arm64v8-latest |
+| armhf        | arm32v7-latest |
+
 
 
 # Changelogs
+## 2020/01/15
+
+      1、update delete.sh & delete.aria2.sh
+      
+## 2020/01/10
+
+      1、增加arm64v8、arm32v7平台镜像
+      2、针对arm平台设备ram小的情况，增加配置下载缓存大小设置
+      3、进一步压缩镜像体积，现在只有10.77 MB
+      
 ## 2019/12/27
 
       1、新增自动更新tracker，默认开启，每次启动容器时会自动检查并更新tracker列表
@@ -60,18 +82,21 @@ __当前的镜像或多或少都有以下几点不符合的我的需求__
 
 # Document
 ## 在线webui
-我在Gitee上构建了基于ariang主线稳定版的在线webui：
-https://sleele.gitee.io/#!/downloading
+
+我在Gitee上构建了基于ariang主线稳定版的在线webui:  
+仅https https://sleele.gitee.io/#!/downloading  
+http  http://sleele.gitee.io/ariang/#!/downloading  
+
 ## 挂载路径
 ``/config`` ``/downloads``
 ## 默认关闭SSL，如需需要请手动开启
 之所以默认关闭SSL(建议开启)，是因为如果开启，又没有配置证书，会导致aria2启动失败，所以如果需要开启请手动编辑aria2.conf
 证书请放在``/config/ssl``目录下
 删掉24,26,28行的``#``号
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-09-27_19-35-32.png)
+![IknUvK](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/IknUvK.jpg)
 ## 修改RPC token
 填写你自己的token,越长越好，建议使用生成的UUID
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-10-11_19-45-50.png)
+![ByRMgP](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/ByRMgP.jpg)
 
 <details>
    <summary>2019.10.11更新日志及用户须知</summary>
@@ -100,13 +125,13 @@ token现在不用写在配置文件里了，使用2019.10.11日前版本的用�
 
 群晖用户请使用你当前的用户SSH进系统，输入 ``id 你的用户id`` 获取到你的UID和GID并输入进去
 
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-12-06_21-12-22.png)
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-09-27_19-19-02.png)
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-09-27_19-20-03.png)
+![nwmkxT](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/nwmkxT.jpg)
+![1d5oD8](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/1d5oD8.jpg)
+![JiGtJA](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/JiGtJA.jpg)
 
 ### 权限管理设置
 对你的``docker配置文件夹的根目录``进行如图操作，``你的下载文件夹的根目录``进行相似操作，去掉``管理``这个权限，只给``写入``,``读取``权限
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-12-07_10-35-24.png)
+![r4dsfV](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/r4dsfV.jpg)
 
 ## 关于自动更新trackers
 我个人是不喜欢这个功能的，Aria2的一些机制，导致Aria2重启带来的问题会很多，比如，已移除的文件他会再下一次等等，所以没事还是不要重启Aria2，而且trackerlist大部分tracker是不会变动的，只有极少数会变动，频繁的自动更新tracker带来的收益极其有限，甚至是负收益
@@ -125,6 +150,7 @@ docker create \
   -e PGID=100 \
   -e TZ=Asia/Shanghai \
   -e SECRET=yourtoken \
+  -e CACHE=512M \
   -e UpdateTracker=true \
   -p 6881:6881 \
   -p 6881:6881/udp \
@@ -146,6 +172,7 @@ services:
       - PGID=100
       - TZ=Asia/Shanghai
       - SECRET=yourtoken
+      - CACHE=512M
       - UpdateTracker=true
     volumes:
       - /path/to/appdata/config:/config
@@ -158,5 +185,5 @@ services:
 ````
 
 # Preview
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-09-27_20-23-40.png)
-![](https://github.com/SuperNG6/pic/blob/master/aria2/Xnip2019-12-27_20-47-27.png)
+![N94s7q](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/N94s7q.jpg)
+![Hq0pXW](https://cdn.jsdelivr.net/gh/SuperNG6/pic@master/uPic/Hq0pXW.jpg)
