@@ -15,6 +15,6 @@ jobs:
               publish: true
               imageName: superng6/aria2
               platform: linux/amd64
-              tag: latest
+              tag: dev
               dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
               dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
