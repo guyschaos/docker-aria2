@@ -6,6 +6,8 @@ filepath=$3
 rdp=${filepath#${downloadpath}/}
 path=${downloadpath}/${rdp%%/*}
 
+echo "Called with num[$2] filepath[$3]" >> /config/log.txt
+
 if [ $2 -eq 0 ]
     then
         exit 0
