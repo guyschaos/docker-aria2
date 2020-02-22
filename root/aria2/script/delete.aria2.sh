@@ -23,5 +23,6 @@ elif [ "$path" != "$filepath" ] && [ $2 -gt 1 ]
 elif [ "$path" != "$filepath" ] && [ $2 -eq 1 ]
     then
         [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2
+        [ -e "$dirpath".aria2 ] && rm -vf "$dirpath".aria2
         exit 0
 fi
