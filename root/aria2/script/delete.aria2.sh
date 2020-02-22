@@ -5,7 +5,7 @@ downloadpath='/downloads'
 filepath=$3
 rdp=${filepath#${downloadpath}/}
 path=${downloadpath}/${rdp%%/*}
-dirpath=${$filepath%/*}
+dirpath=${filepath%/*}
 
 echo "Called with num[$2] filepath[$3]" >> /config/log.txt
 
