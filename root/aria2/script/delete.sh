@@ -7,7 +7,7 @@ rdp=${filepath#${downloadpath}/}
 path=${downloadpath}/${rdp%%/*}
 dirpath=${filepath%/*}
 
-echo "Called with num[$2] filepath[$3] rdp[$rdp] path[$path] dirpath[$dirpath]" >> /config/log.txt
+echo "Called with num [$2] filepath [$3] rdp [$rdp] path [$path] dirpath [$dirpath]" >> /config/log.txt
 
 if [ $2 -eq 0 ]
     then
