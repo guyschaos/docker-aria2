@@ -12,14 +12,14 @@ if [ $2 -eq 0 ]
         exit 0
 elif [ "$path" = "$filepath" ] && [ $2 -eq 1 ]
     then
-        [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2 "$filepath"
+        [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2 && mv -vf "$filepath" /recycle
         exit 0
 elif [ "$path" != "$filepath" ] && [ $2 -gt 1 ]
     then
-        [ -e "$dirpath".aria2 ] && rm -vrf "$dirpath".aria2 "$dirpath"
+        [ -e "$dirpath".aria2 ] && rm -vrf "$dirpath".aria2 && mv -vf "$dirpath" /recycle
         exit 0
 elif [ "$path" != "$filepath" ] && [ $2 -eq 1 ]
     then
-        [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2 "$filepath"
+        [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2 && mv -vf "$filepath" /recycle
         exit 0
 fi
