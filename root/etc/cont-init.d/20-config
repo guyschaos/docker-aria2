@@ -3,7 +3,7 @@
 # make folders
 mkdir -p \
 	/config/ssl \
-  /recycle \
+  /recycle/aria2 \
   /downloads1 \
   /downloads2 \
   /downloads3 \
@@ -29,7 +29,7 @@ fi
 # permissions
 chown -R abc:abc \
 	/config \
-  /recycle \
+  /recycle/aria2 \
   /downloads \
   /downloads1 \
   /downloads2 \
