@@ -34,7 +34,10 @@ chown -R abc:abc \
   /downloads3 \
   /downloads4 \
   /downloads5
-  
+
+# add a folder for completed tasks
+mkdir /downloads/COMPLETED
+
 chmod a+x \
   /aria2/script/delete.sh \
   /aria2/script/delete.aria2.sh \

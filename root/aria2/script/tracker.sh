@@ -7,7 +7,9 @@ aria2_conf="/config/aria2.conf"
 # https://github.com/ngosang/trackerslist
 #tracker=$(wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt | awk NF | sed ":a;N;s/\n/,/g;ta")
 # https://github.com/XIU2/TrackersListCollection
-tracker=$(wget -qO- https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt | awk NF | sed ":a;N;s/\n/,/g;ta")
+# tracker=$(wget -qO- https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt | awk NF | sed ":a;N;s/\n/,/g;ta") https://trackerslist.com/all_aria2.txt
+# githubusercontent is not stable...
+tracker=$(wget --no-check-certificate -qO- https://trackerslist.com/all_aria2.txt)
 [ -z $tracker ] && echo -e "
 $ERROR Unable to get trackers, network failure or invalid links." && exit 1
 echo -e "

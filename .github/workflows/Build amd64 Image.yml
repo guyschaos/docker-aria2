@@ -13,7 +13,7 @@ jobs:
             uses: ilteoood/docker_buildx@master
             with:
               publish: true
-              imageName: superng6/aria2
+              imageName: guyschaos/aria2
               platform: linux/amd64
               tag: latest
               dockerHubUser: ${{ secrets.DOCKER_USERNAME }}

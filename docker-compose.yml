@@ -17,4 +17,6 @@ services:
       - 6881:6881
       - 6881:6881/udp
       - 6800:6800
+      - 43844:43844
+      - 43844:43844/udp
     restart: unless-stopped
