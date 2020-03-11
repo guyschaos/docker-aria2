@@ -30,6 +30,7 @@ elif [ "$path" != "$filepath" ] && [ $2 -gt 1 ]
 elif [ "$path" != "$filepath" ] && [ $2 -eq 1 ]
     then
         [ -e "$filepath".aria2 ] && rm -vf "$filepath".aria2
-        mv "$filepath" /downloads/COMPLETED
+        # torrent task with folder but only 1 file.
+        mv "$path" /downloads/COMPLETED
         exit 0
 fi
