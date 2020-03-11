@@ -9,6 +9,11 @@ rdp=${filepath#${downloadpath}/}
 path=${downloadpath}/${rdp%%/*}
 dirpath=${filepath%/*}
 
+echo "filepath : [$filepath];"
+echo "rdp : [$rdp];"
+echo "path : [$path];"
+echo "dirpath : [$dirpath];"
+
 if [ $2 -eq 0 ]
     then
         exit 0
